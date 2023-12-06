@@ -15,6 +15,8 @@
  * Text Domain:       airtel-the7
  */
 
+define('AIRTEL_THE7_SITE_URL', 'https://airtel.net.local/');
+define('AIRTEL_THE7_SERVICE_URL', 'https://service.airtel.net.local/');
 add_action('after_setup_theme', 'primer_ahoy', 15);
 function primer_ahoy()
 {
@@ -25,6 +27,10 @@ function primer_scripts_and_styles()
 {
     wp_register_script('custom-js', plugin_dir_url(__FILE__) . 'js/custom.js', array('jquery'), '', true);
     wp_enqueue_script('custom-js');
+    wp_localize_script('custom-js', 'AIRTEL_THE7_URL', [
+        'SITE' => AIRTEL_THE7_SITE_URL,
+        'SERVICE' => AIRTEL_THE7_SERVICE_URL
+    ]);
 }
 //wp_enqueue_script( 'script', get_template_directory_uri() . '/js/custom.js', array ( 'jquery' ), 1.1, true);
 
@@ -123,7 +129,7 @@ function checkout_done($order_id)
 
     write_log("Address line built from WC order: $fulladdress");
 
-    $url = "https://airtel.net.au/aus_addr.php/d";
+    $url = AIRTEL_THE7_SITE_URL . "aus_addr.php/d";
 
     $data = array("address" => $fulladdress);
 
@@ -166,7 +172,7 @@ function checkout_done($order_id)
 
         write_log($params);
 
-        $url = "https://service.airtel.net.au/api/create_service";
+        $url = AIRTEL_THE7_SERVICE_URL . "api/create_service";
         $ch = curl_init($url);
         # Setup request to send json via POST.
         $payload = json_encode($params);

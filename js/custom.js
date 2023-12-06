@@ -50,14 +50,14 @@
     }
     
     function addToCart(product_id) {
-        $.get({url:'https://airtel.net.au/?post_type=product&add-to-cart=' + product_id, async:false}, function() {
+        $.get({url:AIRTEL_THE7_URL.SITE + '?post_type=product&add-to-cart=' + product_id, async:false}, function() {
         });
     }
 
     function removeProductOnCart(product_id) {
         $.ajax({
             type: "POST",
-            url: 'https://airtel.net.au/wp-admin/admin-ajax.php',
+            url: AIRTEL_THE7_URL.SITE + 'wp-admin/admin-ajax.php',
             async: false,
             data: {action : 'remove_item_from_cart', product_id : product_id},
             success: function (res) {
@@ -70,7 +70,7 @@
     function loadProductsFromCart() {
         $.ajax({
             type: "POST",
-            url: 'https://airtel.net.au/wp-admin/admin-ajax.php',
+            url: AIRTEL_THE7_URL.SITE + 'wp-admin/admin-ajax.php',
             async: false,
             data: {action : 'load_item_from_cart'},
             success: function (res) {
@@ -174,7 +174,7 @@
 	$('.search-location').on('typeahead:selected', function (e, datum) {
         var request = $.ajax({
             type: "POST",
-            url: "https://service.airtel.net.au/api/find_service",
+            url: AIRTEL_THE7_URL.SERVICE + "/api/find_service",
             data: JSON.stringify({
                 serviceProvider: "NBN",
                 unitNumber: datum.flat_number,
@@ -212,7 +212,7 @@
                         setCookie("display_address", locationList.addressInformation[0].displayAddress);
                         var qualify_service_request = $.ajax({
                             type: "POST",
-                            url: "https://service.airtel.net.au/api/qualify_service",
+                            url: AIRTEL_THE7_URL.SERVICE + "/api/qualify_service",
                             data: JSON.stringify({
                               serviceProvider: "NBN",
                               locationId,
@@ -273,7 +273,7 @@
     });
     
     $(".build-plan-button").click(function() {
-        var next_section = $(".category-section");
+        var next_section = $(".category-section:has(.product-item)");
         $('html, body').animate({
             scrollTop: $(next_section).offset().top - 100  
         }, 1000);
@@ -294,10 +294,10 @@
             category_idx = 3;
         }
 
-        var category = $(".category-section")[category_idx];
+        var category = jQuery(".category-section:has(.product-item)")[category_idx];
 
         if (category_idx < 3) {
-            var next_section = $(".category-section")[category_idx + 1];
+            var next_section = $(".category-section:has(.product-item)")[category_idx + 1];
         } else {
             var next_section = $(".order-summary-section");
         }
