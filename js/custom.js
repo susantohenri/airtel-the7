@@ -174,7 +174,7 @@
 	$('.search-location').on('typeahead:selected', function (e, datum) {
         var request = $.ajax({
             type: "POST",
-            url: AIRTEL_THE7_URL.SERVICE + "/api/find_service",
+            url: AIRTEL_THE7_URL.SERVICE + "api/find_service",
             data: JSON.stringify({
                 serviceProvider: "NBN",
                 unitNumber: datum.flat_number,
@@ -212,7 +212,7 @@
                         setCookie("display_address", locationList.addressInformation[0].displayAddress);
                         var qualify_service_request = $.ajax({
                             type: "POST",
-                            url: AIRTEL_THE7_URL.SERVICE + "/api/qualify_service",
+                            url: AIRTEL_THE7_URL.SERVICE + "api/qualify_service",
                             data: JSON.stringify({
                               serviceProvider: "NBN",
                               locationId,
