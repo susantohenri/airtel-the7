@@ -354,8 +354,20 @@
         displayTotalPrice();
     });
 
+    function owlCarouselHideUnusedArrow () {
+        const first = jQuery(`.dt-owl-item`).not(`.cloned`).eq(0)
+        const last = jQuery(`.dt-owl-item`).eq(first.index() - 1)
+        const left = jQuery(`.owl-nav > a`).eq(0)
+        const right = jQuery(`.owl-nav > a`).eq(1)
+
+        if (!last.is(`.active`)) left.hide(), right.show()
+        else left.show(), right.hide()
+    }
+
     $( document ).ready(function() {
         loadProductsFromCart();
+        owlCarouselHideUnusedArrow()
+        jQuery(`.owl-nav > a`).click(owlCarouselHideUnusedArrow)
     });
 	
 })( jQuery );
