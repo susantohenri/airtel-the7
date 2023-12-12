@@ -354,22 +354,27 @@
         displayTotalPrice();
     });
 
-    function owlCarouselHideUnusedArrow() {
-        const target = jQuery(`.carousel-shortcode-id-a86eaa763d34541d0981f58daee5fde8`)
-        const first = target.find(`.dt-owl-item`).not(`.cloned`).first()
-        const last = target.find(`.dt-owl-item`).not(`.cloned`).last()
-        const left = target.find(`.owl-nav > a`).eq(0)
-        const right = target.find(`.owl-nav > a`).eq(1)
+    function airtelProductSlider() {
+        jQuery(`.airtel-product-slider`).each(function () {
+            const slider = jQuery(this)
+            const first = slider.find(`.dt-owl-item`).not(`.cloned`).first()
+            const last = slider.find(`.dt-owl-item`).not(`.cloned`).last()
+            const arrows = slider.find(`.owl-nav > a`)
+            const left = arrows.eq(0)
+            const right = arrows.eq(1)
 
-        target.find(`.owl-nav > a`).show()
-        if (first.is(`.active`)) left.hide()
-        else if (last.is(`.active`)) right.hide()
+            left.hide()
+            arrows.click(() => {
+                arrows.show()
+                if (first.is(`.active`)) left.hide()
+                else if (last.is(`.active`)) right.hide()
+            })
+        })
     }
 
     $(document).ready(function () {
         loadProductsFromCart();
-        jQuery(`.carousel-shortcode-id-a86eaa763d34541d0981f58daee5fde8`).find(`.owl-nav > a`).eq(0).hide()
-        jQuery(`.carousel-shortcode-id-a86eaa763d34541d0981f58daee5fde8 .owl-nav > a`).click(owlCarouselHideUnusedArrow)
+        airtelProductSlider();
     });
 
 })(jQuery);
