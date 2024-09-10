@@ -15,8 +15,9 @@
  * Text Domain:       airtel-the7
  */
 
-define('AIRTEL_THE7_SITE_URL', 'https://airtel.net.local/');
-define('AIRTEL_THE7_SERVICE_URL', 'https://service.airtel.net.local/');
+define('AIRTEL_THE7_ENV', 'http://airtel.net.local' == site_url() ? 'DEV' : 'PROD');
+define('AIRTEL_THE7_SITE_URL', 'DEV' == AIRTEL_THE7_ENV ? 'https://airtel.net.local/' : 'https://airtel.net.au/');
+define('AIRTEL_THE7_SERVICE_URL', 'DEV' == AIRTEL_THE7_ENV ? 'https://service.airtel.net.local/' : 'https://service.airtel.net.au/');
 add_action('after_setup_theme', 'primer_ahoy', 15);
 function primer_ahoy()
 {
